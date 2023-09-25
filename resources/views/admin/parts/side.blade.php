@@ -20,15 +20,15 @@
       </li>
       <li class="menu-label">Admin Tools</li>
       <li>
-        <a href="javascript:;" class="has-arrow">
+        <a class="has-arrow">
           <div class="parent-icon"><i class="bi bi-droplet-fill"></i>
           </div>
           <div class="menu-title">Categories</div>
         </a>
         <ul>
-          <li> <a href="widgets-static-widgets.html"><i class="bi bi-circle"></i>View Categories</a>
+          <li> <a href="{{ route('admin.category.index') }}"><i class="bi bi-circle"></i>View Categories</a>
           </li>
-          <li> <a href="widgets-data-widgets.html"><i class="bi bi-circle"></i>Create Category</a>
+          <li> <a href="{{ route('admin.category.create') }}"><i class="bi bi-circle"></i>Create Category</a>
           </li>
         </ul>
       </li>

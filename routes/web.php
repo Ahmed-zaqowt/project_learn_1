@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admint\Category\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,9 +21,18 @@ Route::get('/', function () {
 
 
 Route::prefix('admin')->name('admin.')->middleware('auth.check.user')->group(function () {
+
     Route::get('/' , function(){
         return view('admin.index');
     })->name('index');
+   /* Route::prefix('category')->name('category.')->group(function(){
+
+    });*/
+
+    Route::resource('category' , CategoryController::class) ;
+
+
+
 });
 
 

@@ -562,6 +562,7 @@
     new PerfectScrollbar(".best-product")
  </script>
 
+         @yield('js')
 
 </body>
 

@@ -17,8 +17,8 @@ class UserMiddleware
     public function handle(Request $request, Closure $next): Response
     {
 
-        if(Auth::user()->status == 'user'){
-           return redirect()->route('index'); 
+        if(Auth::user()->status  == 'user'){
+           return redirect()->route('index');
         }
         return $next($request);
     }
