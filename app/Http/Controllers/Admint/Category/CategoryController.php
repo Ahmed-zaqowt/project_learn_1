@@ -3,19 +3,43 @@
 namespace App\Http\Controllers\Admint\Category;
 
 use App\Models\Category;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Yajra\DataTables\Facades\DataTables;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $categories = Category::all() ;
         return view('admin.category.index' , compact('categories'));
+    }
+
+    function getdata(Request $request){
+        $categories = Category::query() ;
+        return DataTables::of($categories)
+            ->addIndexColumn()
+            ->addColumn('actions' , function ($qur){
+                return '<div class="d-flex align-items-center gap-3 fs-6">
+                                <div  class="text-primary"
+                                ><i class="bi bi-eye-fill"></i></div>
+                                <div  class="text-warning edit_btn" data-id="'. $qur->id .'" data-name="'. $qur->name  .'" data-parent="'. $qur->parent_id .'" data-desc="'. $qur->description .'" data-bs-toggle="modal" data-bs-target="#modal-update"><i class="bi bi-pencil-fill"></i></div>
+                                <div  class="text-danger delete_btn" data-url="/admin/category/delete/'. $qur->id .'" ><i class="bi bi-trash-fill"></i></div>
+                                </div>';
+            })
+            ->addColumn('parent' , function ($qur){
+                return $qur->parent->name;
+            })
+            ->addColumn('date' , function ($qur){
+                $date =  $qur->created_at->toDateString() ;
+                 $dateparse =    Carbon::parse($date);
+                 return $dateparse->format('y-M-d');
+            })
+            ->rawColumns(['parent' , 'actions' , 'date'])
+            ->make(true);
     }
 
     /**
@@ -32,7 +56,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-       // dd($request->all());
+
         $request->validate([
            'name' => 'required' ,
            'parent' => 'nullable' ,
@@ -52,7 +76,20 @@ class CategoryController extends Controller
         ]);
 
         $categories = Category::all() ;
-        return view('admin.parts.list-categories' , compact('categories'))->render() ;
+        //return view('admin.parts.list-categories' , compact('categories'))->render() ;
+
+
+        /*
+         * {
+         * "success": "Added Successful"
+         * }
+         *
+         *
+         *
+         */
+        return response()->json([
+            "success" => "Added Successful"
+        ] , 201);
     }
 
     /**
@@ -68,22 +105,56 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'name' => 'required' ,
+            'parent' => 'nullable' ,
+            'description' => 'required' ,
+        ]);
+        $category = Category::query()->findOrFail($request->id);
+
+
+        if($request->has('image')){
+            $nameimage = time() . '_' . rand() . '.' . $request->file('image')->getClientOriginalExtension() ;
+            $request->file('image')->move(public_path('uploads') , $nameimage) ;
+
+            $category->update([
+                'image' => $nameimage
+            ]);
+        }
+
+        $category->update([
+            'name' => $request->name ,
+            'slug' => Str::slug($request->name) ,
+            'parent_id' => $request->parent ,
+            'description' => $request->description ,
+        ]);
+
+        return response()->json([
+            "success" => "Updated Successful"
+        ]  , 201) ;
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function delete(string $id)
     {
-        //
+
+        Category::destroy($id);
+        return response()->json([
+            "success" => "Deleted Successful"
+        ] , 201);
+
+
     }
 }

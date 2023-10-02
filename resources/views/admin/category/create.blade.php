@@ -109,13 +109,11 @@
 
 
         let formdata = new FormData(this)
-
-
        $.ajax({
-            url: "{{ route('admin.category.store') }}" ,
+            url: "{{route('admin.category.store') }}" ,
             type: 'POST' ,
-            contentType: false  ,
-            processData: false   ,
+            contentType: false ,
+            processData: false ,
             data: formdata,
             success: function(res){
                 // console.log(res);
@@ -123,8 +121,7 @@
                $('#formcreate').trigger("reset")
             },
             error: function(er){
-               alert(er);
-
+              //  alert(er);
             }
         })
     });

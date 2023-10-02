@@ -25,11 +25,16 @@ Route::prefix('admin')->name('admin.')->middleware('auth.check.user')->group(fun
     Route::get('/' , function(){
         return view('admin.index');
     })->name('index');
-   /* Route::prefix('category')->name('category.')->group(function(){
 
-    });*/
 
-    Route::resource('category' , CategoryController::class) ;
+    // Route::resource('category' , CategoryController::class) ;
+    Route::prefix('category')->name('category.')->group(function (){
+        Route::get('/index' , [CategoryController::class , 'index'])->name('index');
+        Route::get('/getdata' , [CategoryController::class , 'getdata'])->name('getdata');
+        Route::post('/store' , [CategoryController::class , 'store'])->name('store');
+        Route::post('/update' , [CategoryController::class , 'update'])->name('update');
+        Route::delete('/delete/{id}' , [CategoryController::class , 'delete'])->name('delete');
+    });
 
 
 

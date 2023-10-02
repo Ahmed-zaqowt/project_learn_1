@@ -26,9 +26,9 @@
           <div class="menu-title">Categories</div>
         </a>
         <ul>
-          <li> <a href="{{ route('admin.category.index') }}"><i class="bi bi-circle"></i>View Categories</a>
+          <li> <a href=""><i class="bi bi-circle"></i>View Categories</a>
           </li>
-          <li> <a href="{{ route('admin.category.create') }}"><i class="bi bi-circle"></i>Create Category</a>
+          <li> <a href=""><i class="bi bi-circle"></i>Create Category</a>
           </li>
         </ul>
       </li>

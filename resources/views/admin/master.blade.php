@@ -16,7 +16,7 @@
   <link href="{{ asset('admin_assets/css/style.css')}}" rel="stylesheet" />
   <link href="{{ asset('admin_assets/css/icons.css')}}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 
   <!-- loader-->
@@ -27,8 +27,11 @@
   <link href="{{ asset('admin_assets/css/light-theme.css')}}" rel="stylesheet" />
   <link href="{{ asset('admin_assets/css/semi-dark.css')}}" rel="stylesheet" />
   <link href="{{ asset('admin_assets/css/header-colors.css')}}" rel="stylesheet" />
-
-  <title>@yield('title' , env('APP_NAME'))</title>
+    <link href="{{ asset('datatable_custom/css/vendor/dataTables.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('datatable_custom/css/vendor/responsive.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css"
+          href="{{ asset('toastr/app-assets/vendors/css/extensions/toastr.min.css') }}">
+    <title>@yield('title' , env('APP_NAME'))</title>
 </head>
 
 <body>
@@ -552,17 +555,15 @@
   <script src="{{ asset('admin_assets/plugins/metismenu/js/metisMenu.min.js')}}"></script>
   <script src="{{ asset('admin_assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js')}}"></script>
   <script src="{{ asset('admin_assets/js/pace.min.js')}}"></script>
-  <script src="{{ asset('admin_assets/plugins/chartjs/js/Chart.min.js')}}"></script>
-  <script src="{{ asset('admin_assets/plugins/chartjs/js/Chart.extension.js')}}"></script>
-  <script src="{{ asset('admin_assets/plugins/apexcharts-bundle/js/apexcharts.min.js')}}"></script>
   <!--app-->
+  <script src="{{ asset('datatable_custom/js/vendor/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('datatable_custom/js/vendor/dataTables.bootstrap5.js') }}"></script>
+  <script src="{{ asset('datatable_custom/js/vendor/dataTables.responsive.min.js') }}"></script>
   <script src="{{ asset('admin_assets/js/app.js')}}"></script>
-  <script src="{{ asset('admin_assets/js/index.js')}}"></script>
-  <script>
-    new PerfectScrollbar(".best-product")
- </script>
+  <script src="{{ asset('toastr/app-assets/vendors/js/extensions/toastr.min.js') }}"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  @yield('js')
 
-         @yield('js')
 
 </body>
 
